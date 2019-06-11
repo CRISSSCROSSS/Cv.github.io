@@ -1,34 +1,44 @@
-<!-- AR.js by @jerome_etienne - github: https://github.com/jeromeetienne/ar.js - info: https://medium.com/arjs/augmented-reality-in-10-lines-of-html-4e193ea9fdbf -->
+<!DOCTYPE html>
+<script src="vendor/aframe/build/aframe.min.js"></script>
+<!-- include aframe-ar.js -->
+<script src="../build/aframe-ar.js"></script>
+<!-- Register an aframe component that allows reacting to marker events -->
+<script>
+	AFRAME.registerComponent('registerevents', {
+		init: function () {
+			var marker = this.el;
+			marker.addEventListener('markerFound', function() {
+				var markerId = marker.id;
+				console.log('markerFound', markerId);
+				// TODO: Add your own code here to react to the marker being found.
+			});
+			marker.addEventListener('markerLost', function() {
+				var markerId = marker.id;
+				console.log('markerLost', markerId);
+				// TODO: Add your own code here to react to the marker being lost.
+			});
+		}
+	});
+</script>
 <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
 
 <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
 
-<body style= 'margin : 0px; overflow: hidden' >
+<body style= 'margin : 0px; overflow: hidden'>
   
-<!--a-assets>
+<a-assets>
         <video 
-               id="alpha" 
-               autoplay loop="true" 
-               src="https://cdn.glitch.com/cd33a7c9-c929-4a85-8bfd-f4791e627c2d%2Ftelematica%20corporativo-ARMODE.webm?1559087592906">
-  </video>
-
-      <video 
-               id="alphae"
-             autoplay loop="true"
-             src="https://cdn.glitch.com/cd33a7c9-c929-4a85-8bfd-f4791e627c2d%2Ftelematica_dado%20por%20empresa-%20editado.webm?1559093232914">
+               id= "alpha" 
+               autoplay loop= "true" 
+               src="https://cdn.glitch.com/5a3233cb-fad0-48ad-9030-4ec6b7319b5a%2Fcv%20alpha.webm?v=1560245580000">
   </video>
   
-    </a-assets-->
+    </a-assets>
   
-<a-scene embedded arjs= sourceType: "webcam"; trackingmethod: "best" ; >   
-            <a-plane position="-1.59944 0.08 0.12782" rotation="-90 0 0" width="4" height="4"
-                     material="src:https://cdn.glitch.com/f11d6359-2b21-45d5-b614-5e07ef750266%2FWhatsApp%20Image%202019-05-30%20at%203.01.17%20PM%20(1).jpeg?1559252155083" scale="0.76 0.74 0.5" >
-  </a-plane><a-plane position="2.04265 0.08 0.12782" rotation="-90 0 0" width="4" height="4"
-                     material="src:https://cdn.glitch.com/f11d6359-2b21-45d5-b614-5e07ef750266%2FWhatsApp%20Image%202019-05-30%20at%202.46.55%20PM.jpeg?1559252157701" scale="1 0.82 0.5" >
-  </a-plane><a-plane position="-0.17735 0.22 -2.89218" rotation="-90.04 -0.2 0" width="4" height="4" material="src:https://cdn.glitch.com/f11d6359-2b21-45d5-b614-5e07ef750266%2FWhatsApp%20Image%202019-04-10%20at%2012.40.39%20PM.jpeg?1559252157291" scale="0.84 0.54 0.5" ></a-plane>
-  
-		<a-marker-camera preset="hiro"></a-marker-camera>
-	</a-scene>
+	<a-scene arjs = "debugUIEnabled: false ; trackingmethod: best; patternRatio: 0.75 ; sourceType: webcam ;" > 
+<a-marker preset="custom" ; type="pattern" url="https://cdn.glitch.com/1c71a5a4-ae7d-4c2f-9897-b617d542b942%2Fpattern-familia%20modelo.patt" ; arjs-anchor="minConfidence:0.333" ; "registerevents"; "emitevents" >
+<a-plane position="-0.02944 0.08 2.18782" rotation="-90 0 0" width="4" height="4" material="src:#alpha" scale="3.44 2.14 1" geometry="">
+  </a-plane>
+    </a-marker>
+  </a-scene>
 </body>
-
-
